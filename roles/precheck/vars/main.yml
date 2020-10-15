@@ -1,0 +1,4 @@
+---
+# vars file for roles/precheck
+switchint: 1
+switchver: "4.22"
