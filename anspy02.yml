@@ -1,0 +1,30 @@
+---
+- name: Push a script and run it
+  hosts: localhost
+
+  tasks:
+    ## If you want your script to only ever execute once
+    - script: /home/student/mycode/pyhello2.py
+      args:
+        ## execute in python3 and only run if the following file is MISSING
+        ## the creates argument means script create the file so if it is 
+        ## present then don't run the script
+        executable: python3
+        creates: /home/student/mycode/stopper.txt
+      register: results
+
+    - debug:
+        msg: "{{ results }}"
+
+    - script: /home/student/mycode/pyhello3.py
+      args:
+      ## execute in python3 and only run if the following file is PRESENT
+      ## the removes argument means the script removes the file so if the 
+      ## the file is present then the script should run. 
+        executable: python3
+        removes: /home/student/mycode/remove.txt
+      register: results2
+
+    - debug:
+        msg: "{{ results2 }}"
+
